@@ -3,6 +3,7 @@ package unam.ciencias.computoconcurrente;
 public class FilterAlgorithmLock implements Lock {
     private int totalThreads;
     private int permits;
+
     volatile int[] nivel;
     volatile int[] victima;
 
@@ -11,8 +12,9 @@ public class FilterAlgorithmLock implements Lock {
         this.permits = permits;
 
         nivel = new int[totalThreads];
+        victima = new int[totalThreads];
 
-        victima = new int[totalThreads-permits+1];
+        
         for(int i = 0; i < totalThreads; ++i){
             nivel[i] = 0;
         }
