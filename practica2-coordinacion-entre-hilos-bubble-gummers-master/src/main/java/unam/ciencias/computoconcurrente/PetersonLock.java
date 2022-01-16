@@ -7,19 +7,21 @@ package unam.ciencias.computoconcurrente;
 public class PetersonLock implements Lock {
   volatile int victima;
   boolean[] bandera = new boolean[2];
+
   public PetersonLock() {}
 
   @Override
   public void lock() {
-    int ID = Integer.valueOf(Thread.currentThread().getName())%2; //Obtenemos ID de nuestro hilo
-    bandera[ID] = true; //Estamo interesados
-    victima = ID; //Dejamos pasar
-    while(bandera[1-ID] && victima == ID); //Esperamos mientras el otro este interrados y sea victima
+    int ID = Integer.valueOf(Thread.currentThread().getName()) % 2; // Obtenemos ID de nuestro hilo
+    bandera[ID] = true; // Estamo interesados
+    victima = ID; // Dejamos pasar
+    while (bandera[1 - ID] && victima == ID)
+      ; // Esperamos mientras el otro este interrados y sea victima
   }
 
   @Override
   public void unlock() {
-    int ID = Integer.valueOf(Thread.currentThread().getName())%2;
-    bandera[ID] = false; //Ya no quiero nada.
+    int ID = Integer.valueOf(Thread.currentThread().getName()) % 2;
+    bandera[ID] = false; // Ya no quiero nada.
   }
 }
